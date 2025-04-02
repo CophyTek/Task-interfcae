@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Interface</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url(1.jpg);
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .button {
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .button.red {
+            background-color: #ff4444;
+        }
+        .logo{
+            position: absolute;
+            top: 150px; /* Adjust the spacing from the top */
+            left: 150px; /* Adjust the spacing from the left */
+            width: 20px; /* Adjust size if needed */
+        }
+    </style>
+</head>
+<body>
+    <img src="logo.jpg" alt="Logo" class="logo">
+    <button class="button" id="startTask">START TASK</button>
+    <button class="button" id="joinGetPaid">Join & Get Paid</button>
+    <button class="button red" id="taskApproval">Task Approval</button>
+    
+    <script>
+        const links = [
+            "https://example1.com", "https://example2.com", "https://example3.com",
+            "https://example4.com", "https://example5.com", "https://example6.com",
+            "https://example7.com", "https://example8.com", "https://example9.com",
+            "https://example10.com", "https://example11.com", "https://example12.com",
+            "https://example13.com", "https://example14.com", "https://example15.com"
+        ];
+
+        function getRedirectLink() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+            const hour = now.getHours();
+
+            // Define working days (Monday-Friday) and working hours (8-hour shift)
+            const isWorkingDay = day >= 1 && day <= 5;
+            const isWorkingHour = hour >= 9 && hour < 17; // Assuming work is from 9 AM to 5 PM
+
+            if (!isWorkingDay || !isWorkingHour) {
+                alert("Task is available only during working hours (9 AM - 5 PM, Monday to Friday).");
+                return null;
+            }
+
+            // Divide 8 working hours into 15 segments
+            const segment = Math.floor((hour - 9) / (8 / 15));
+
+            return links[segment] || links[0]; // Default to first link if segment index is invalid
+        }
+
+        document.getElementById('startTask').addEventListener('click', function() {
+            if (confirm("Write a review, Comment, vote and send a screenshot to approve your task")) {
+                const redirectLink = getRedirectLink();
+                if (redirectLink) {
+                    window.location.href = redirectLink;
+                }
+            }
+        });
+
+        document.getElementById('joinGetPaid').addEventListener('click', function() {
+            window.location.href = "https://your-signup-link.com"; // Replace with actual join link
+        });
+
+        document.getElementById('taskApproval').addEventListener('click', function() {
+            if (confirm("Write a review, Comment, vote and send a screenshot to approve your task")) {
+                window.location.href = 'https://example.com'; // Replace with the actual link
+                
+            }
+        });
+    </script>
+</body>
+</html>
